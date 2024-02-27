@@ -6,26 +6,22 @@
 package BLL;
 
 import DAL.CategoryDAL;
-import java.io.FileNotFoundException;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import hibernate.entities.Category;
 
 /**
- *
  * @author Asus
  */
 public class LoaiBLL {
 
     private List<Category> loaiBUS;
-    CategoryDAL dal=new CategoryDAL();
+    CategoryDAL dal = new CategoryDAL();
 
     public LoaiBLL() {
         loaiBUS = null;
-    }
-
-    public List<Category> getLoaiBUS() {
-        return loaiBUS;
     }
 
     public void list() {
@@ -47,7 +43,7 @@ public class LoaiBLL {
     public void delete(String id) {
         int idLoai = Integer.parseInt(id);
         for (Category loaiDTO : loaiBUS) {
-            if (loaiDTO.getId()== idLoai) {
+            if (loaiDTO.getId() == idLoai) {
                 loaiBUS.remove(loaiDTO);
                 CategoryDAL loaiDAO = new CategoryDAL();
                 try {
@@ -62,7 +58,7 @@ public class LoaiBLL {
 
     public void set(Category loaiDTO) {
         for (int i = 0; i < loaiBUS.size(); i++) {
-            if (loaiBUS.get(i).getId()== loaiDTO.getId()) {
+            if (loaiBUS.get(i).getId() == loaiDTO.getId()) {
                 loaiBUS.set(i, loaiDTO);
                 CategoryDAL loaiDAO = new CategoryDAL();
                 try {
@@ -77,17 +73,17 @@ public class LoaiBLL {
 
     public Category searchMaLoai(int maloai) {
         for (Category loai : loaiBUS) {
-            if (loai.getId()== maloai) {
+            if (loai.getId() == maloai) {
                 return loai;
             }
         }
         return null;
     }
 
-    public String getName(int idLoai){
+    public String getName(int idLoai) {
         String name = "";
         for (Category loaiDTO : loaiBUS) {
-            if (loaiDTO.getId()== idLoai) {
+            if (loaiDTO.getId() == idLoai) {
                 name = loaiDTO.getName();
                 break;
             }
@@ -95,24 +91,8 @@ public class LoaiBLL {
         return name;
     }
 
-    public int getID(String name){
-        int id = 0;
-        for (Category loaiDTO : loaiBUS) {
-            if (loaiDTO.getName().equals(name)) {
-                id = loaiDTO.getId();
-                break;
-            }
-        }
-        return id;
-    }
-    public long getCountCategory(){
+    public long getCountCategory() {
         return dal.getCount();
     }
-    public static void main(String[] args) {
-        LoaiBLL bus = new LoaiBLL();
-        bus.list();
-        Category rs = bus.searchMaLoai(7);
-        System.out.println(rs);
-//        bus.getLoaiBUS().forEach(s->System.out.println(s));
-    }
+
 }

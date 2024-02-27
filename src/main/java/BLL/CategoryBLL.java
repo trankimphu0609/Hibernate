@@ -6,13 +6,7 @@
 package BLL;
 
 import DAL.CategoryDAL;
-import DAL.ProductDAL;
 import hibernate.entities.Category;
-import hibernate.entities.Category;
-import hibernate.entities.Product;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,20 +29,22 @@ public class CategoryBLL {
     }
 
     public void loadListCategory() {
-        if (listCategory== null) {
+        if (listCategory == null) {
             listCategory = new ArrayList<Category>();
         }
-        listCategory=dal.findAll();
+        listCategory = dal.findAll();
     }
+
     public ArrayList<Category> searchCourseWithID(int id) {
         ArrayList<Category> search = new ArrayList<>();
         for (Category cs : listCategory) {
-            if (cs.getId()==id) {
-              search.add(cs);
+            if (cs.getId() == id) {
+                search.add(cs);
             }
         }
         return search;
     }
+
     public ArrayList<Category> searchCourseWithName(String name) {
         ArrayList<Category> search = new ArrayList<>();
         for (Category cs : listCategory) {
@@ -58,13 +54,11 @@ public class CategoryBLL {
         }
         return search;
     }
-    public long getCountCategory(){
-        return dal.getCount();
-    }
+
     public void add(Category category) {
         try {
             dal.insertCategory(category);
-           listCategory.add(category);
+            listCategory.add(category);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -73,7 +67,7 @@ public class CategoryBLL {
     public void delete(String id) {
 
         int idCate = Integer.parseInt(id);
-        for(int i = 0 ; i < listCategory.size() ; i++){
+        for (int i = 0; i < listCategory.size(); i++) {
             if (listCategory.get(i).getId() == idCate) {
                 try {
                     dal.deleteCategory(idCate);

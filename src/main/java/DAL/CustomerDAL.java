@@ -6,7 +6,9 @@ package DAL;
 
 import hibernate.entities.Customer;
 import hibernate.utils.HibernateUtils;
+
 import java.util.List;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -14,7 +16,6 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 /**
- *
  * @author Trần Kim Phú
  */
 public class CustomerDAL {
@@ -70,7 +71,7 @@ public class CustomerDAL {
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) tx.rollback();
-            
+
 
             e.printStackTrace();
             return 0;
@@ -130,21 +131,5 @@ public class CustomerDAL {
             session.close();
         }
         return result;
-    }
-    
-    public static void main(String[] args) {
-        CustomerDAL dal = new CustomerDAL();
-        List listProduct = dal.getAllCustomer("DESC");
-        listProduct.forEach(s-> System.out.println(s.toString()));
-        //dal.updateProdct(1);
-        Customer c = new Customer();
-        c.setId(6);
-        c.setFirstName("Phú");
-        c.setLastName("Trần");
-        c.setPhoneNumber("0123456789");
-        dal.updateCustomer(c);
-//        dal.deleteProduct(22);
-        System.out.println("Element: "+dal.getCustomerById(1));
-
     }
 }

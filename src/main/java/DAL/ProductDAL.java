@@ -1,6 +1,5 @@
 package DAL;
 
-import hibernate.entities.Category;
 import hibernate.entities.Product;
 import hibernate.utils.HibernateUtils;
 import org.hibernate.HibernateException;
@@ -8,19 +7,20 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-
 import java.util.List;
+
 import org.hibernate.query.Query;
 
 public class ProductDAL {
     static final SessionFactory factory = HibernateUtils.getSessionFactory();
-    public List getAllProduct(String orderby){
+
+    public List getAllProduct(String orderby) {
         Session session = factory.openSession();
         List listProduct = null;
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
-            String hql = "FROM Product  ORDER BY id "+orderby;
+            String hql = "FROM Product  ORDER BY id " + orderby;
             listProduct = session.createQuery(hql).list();
 
             tx.commit();
@@ -32,13 +32,14 @@ public class ProductDAL {
         }
         return listProduct;
     }
-    public Product getProductById(int id){
+
+    public Product getProductById(int id) {
         Session session = factory.openSession();
         Product product = null;
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
-            String hql = "FROM Product P WHERE P.id ="+ id;
+            String hql = "FROM Product P WHERE P.id =" + id;
             product = (Product) session.createQuery(hql).uniqueResult();
             tx.commit();
         } catch (HibernateException e) {
@@ -49,7 +50,8 @@ public class ProductDAL {
         }
         return product;
     }
-    public int insertProdct(Product product){
+
+    public int insertProdct(Product product) {
         Session session = factory.openSession();
         int result = 1;
         Transaction tx = null;
@@ -67,8 +69,9 @@ public class ProductDAL {
         }
         return result;
     }
-    public int updateProduct(Product product){
-        System.out.println("A - "+product);
+
+    public int updateProduct(Product product) {
+        System.out.println("A - " + product);
         Session session = factory.openSession();
         int result = 0;
         Transaction tx = null;
@@ -88,8 +91,8 @@ public class ProductDAL {
             query.setParameter("image", product.getImage());
             System.out.println(hql);
             result = query.executeUpdate();
-           System.out.println("Rows affected: " + result);
-           // session.update(product);
+            System.out.println("Rows affected: " + result);
+            // session.update(product);
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) tx.rollback();
@@ -100,7 +103,8 @@ public class ProductDAL {
 
         return result;
     }
-    public int deleteProduct(int id){
+
+    public int deleteProduct(int id) {
         Session session = factory.openSession();
         int result = 0;
         Transaction tx = null;
@@ -110,7 +114,7 @@ public class ProductDAL {
             Query query = session.createQuery(hql);
             query.setParameter("id", id);
             result = query.executeUpdate();
-          //  System.out.println("Rows affected: " + result);
+            //  System.out.println("Rows affected: " + result);
 
             tx.commit();
         } catch (HibernateException e) {
@@ -121,15 +125,15 @@ public class ProductDAL {
         }
         return result;
     }
-    
-    public long getCount(){
+
+    public long getCount() {
         Session session = factory.openSession();
         long amount = 0;
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
             Query query = session.createQuery("select count(*) from Product");
-            amount = (long)query.uniqueResult();
+            amount = (long) query.uniqueResult();
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) tx.rollback();
@@ -137,15 +141,6 @@ public class ProductDAL {
         } finally {
             session.close();
         }
-        return amount;        
-    }
-    
-    public static void main(String[] args) {
-        ProductDAL dal = new ProductDAL();
-        
-        System.out.println("Count: "+String.valueOf(dal.getCount()));
-        
-        
-
+        return amount;
     }
 }

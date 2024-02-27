@@ -6,11 +6,11 @@ package BLL;
 
 import DAL.CustomerDAL;
 import hibernate.entities.Customer;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
  * @author Trần Kim Phú
  */
 public class CustomerBLL {
@@ -81,39 +81,5 @@ public class CustomerBLL {
                 }
             }
         }
-    }
-
-    public boolean checkIDCus(int idCus) {
-        for (Customer c : listCus) {
-            if (c.getId() == idCus) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public List<Customer> searchCustomerWithFirstName(String fn) {
-        List<Customer> search = null;
-        for (Customer ps : listCus) {
-            if (ps.getFirstName().trim().toLowerCase().contains(fn.trim().toLowerCase())) {
-                search.add(ps);
-            }
-        }
-        return search;
-    }
-
-    public List<Customer> searchCustomerWithLastName(String ln) {
-        List<Customer> search = null;
-        for (Customer ps : listCus) {
-            if (ps.getLastName().trim().toLowerCase().contains(ln.trim().toLowerCase())) {
-                search.add(ps);
-            }
-        }
-        return search;
-    }
-
-    public static void main(String[] args) {
-        CustomerBLL bll = new CustomerBLL();
-        bll.getListCustomer().forEach(System.out::println);
     }
 }

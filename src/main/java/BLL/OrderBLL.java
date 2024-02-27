@@ -1,19 +1,17 @@
 package BLL;
+
 import DAL.OrderDAL;
-import hibernate.entities.Customer;
 import hibernate.entities.Order;
-import hibernate.entities.OrderDetail;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-
-
-
 public class OrderBLL {
     private OrderDAL dal = new OrderDAL();
     private List<Order> hdBLL;
+
     public OrderBLL() {
         list();
     }
@@ -27,7 +25,6 @@ public class OrderBLL {
         hdBLL = dal.getAllOrder("DESC");
     }
 
-
     public void delete(String id) {
         int idHoaDon = Integer.parseInt(id);
         for (Order hoaDonDTO : hdBLL) {
@@ -39,15 +36,14 @@ public class OrderBLL {
             }
         }
     }
-    public List<Order> getListOrder() {
 
-       try{
-           return dal.getAllOrder("DESC");
-       }
-       catch (Exception e) {
-           e.printStackTrace();
-       }
-       return null;
+    public List<Order> getListOrder() {
+        try {
+            return dal.getAllOrder("DESC");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public long getCountOrder() {
@@ -59,15 +55,15 @@ public class OrderBLL {
         return 0;
     }
 
-    public long getTotalRevenue(){
-           try {
-               return dal.getTotalRevenue();
-           }
-           catch (Exception e) {
-               e.printStackTrace();
-           }
-           return 0;
+    public long getTotalRevenue() {
+        try {
+            return dal.getTotalRevenue();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
+
     public Order getOrderById(int id) {
         try {
             return dal.getOrderById(id);
@@ -79,7 +75,7 @@ public class OrderBLL {
 
     public void insertOrder(Order hd) {
         dal.insertOrder(hd);
-        hdBLL.add(hd);     
+        hdBLL.add(hd);
     }
 
     public String remindMaHD() {
@@ -106,30 +102,6 @@ public class OrderBLL {
         return false;
     }
 
-    //    //phần thống kê
-//    public boolean checkTime(Calendar from, Calendar to, Calendar time) {
-////        System.err.print(from.getTime()+" ");
-////        System.err.print(to.getTime()+" ");
-////        System.err.println(time.getTime());
-//        if (time.after(from) && time.before(to)) {
-//            return true;
-//        }
-//        return false;
-//    }
-//
-//    public ArrayList<HoaDonDTO> ListTime(Calendar from, Calendar to) {
-//        ArrayList<HoaDonDTO> list = new ArrayList<>();
-//        for (HoaDonDTO hd : hdBUS) {
-//            Timestamp date = hd.getCreate_day();
-//            Calendar time = Calendar.getInstance();
-//            time.setTimeInMillis(date.getTime());
-//            if (checkTime(from, to, time)) {
-//                list.add(hd);
-//            }
-//        }
-//        return list;
-//    }
-//
     public ArrayList<Order> search(int mm, int yyyy, double max, double min, int mahd) {
         int mm1 = 0, mm2 = 12;
         int yyy1 = 0, yyy2 = Calendar.getInstance().get(Calendar.YEAR);
@@ -167,35 +139,6 @@ public class OrderBLL {
             }
         }
         return search;
-    }
-
-    public ArrayList<Order> getListWidthArray(ArrayList<String> s) {
-        ArrayList<Order> ds = new ArrayList<>();
-        if (s == null) {
-            return (ArrayList<Order>) hdBLL;
-        }
-        for (Order hd : hdBLL) {
-            String mahd = String.valueOf(hd.getId());
-            for (String a : s) {
-                if (mahd.equals(a)) {
-                    ds.add(hd);
-                }
-            }
-        }
-        return ds;
-    }
-    
-        
-    public static void main(String[] args) {
-//        Customer customer = new CustomerBLL().getCustomerById(4);
-//        List<OrderDetail> listOrderDetail = new OrderDetailBLL(1).getCt_hdBLL();
-//        Order order = new Order(4, 200f, new Date(), 1, customer, listOrderDetail);
-
-        OrderBLL bll = new OrderBLL();
-        OrderDetail orderDetail=new OrderDetail();
-
-
-       
     }
 
 }
